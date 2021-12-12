@@ -1,6 +1,7 @@
 from contextlib import closing
 
 import psycopg2
+from psycopg2 import IntegrityError
 
 from customers import Customers
 from operators import Operators
@@ -24,30 +25,20 @@ with closing(psycopg2.connect(dbname='rgr', user='postgres', password='postgres'
                 continue
 
             if operation == 'show all':
-                query = eval(f'{table}.show_all()')
-                cursor.execute(query)
-                print('Results:')
-                for row in cursor:
-                    print(row)
+                operation = 'show_all'
 
-            elif operation == 'select':
-                query = eval(f'{table}.select()')
-                cursor.execute(query)
-                print('Results:')
-                for row in cursor:
-                    print(row)
+            try:
+                if operation in ['show_all', 'select']:
+                    query = eval(f'{table}.{operation}()')
+                    cursor.execute(query)
+                    print('Results:')
+                    for row in cursor:
+                        print(row)
 
-            elif operation == 'insert':
-                query = eval(f'{table}.insert()')
-                cursor.execute(query)
-                conn.commit()
-
-            elif operation == 'update':
-                query = eval(f'{table}.update()')
-                cursor.execute(query)
-                conn.commit()
-
-            elif operation == 'delete':
-                query = eval(f'{table}.delete()')
-                cursor.execute(query)
-                conn.commit()
+                elif operation in ['insert', 'update', 'delete']:
+                    query = eval(f'{table}.{operation}()')
+                    cursor.execute(query)
+                    conn.commit()
+                    print('Done!')
+            except Exception as e:
+                print(e)

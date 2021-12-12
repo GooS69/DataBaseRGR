@@ -23,7 +23,6 @@ class Services:
     def update():
         title = input('Enter service title(not null):')
         price = input('Enter service price:')
-        # validation on price
         type = input('Enter service type:')
         return f"update services set price = '{price}', type = '{type}' where service_title = '{title}';"
 
