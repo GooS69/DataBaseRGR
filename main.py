@@ -37,6 +37,11 @@ with closing(psycopg2.connect(dbname='rgr', user='postgres', password='postgres'
                 for row in cursor:
                     print(row)
 
+            elif operation == 'insert':
+                query = eval(f'{table}.insert()')
+                cursor.execute(query)
+                conn.commit()
+
             elif operation == 'delete':
                 query = eval(f'{table}.delete()')
                 cursor.execute(query)
