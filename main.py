@@ -40,3 +40,4 @@ with closing(psycopg2.connect(dbname='rgr', user='postgres', password='postgres'
             elif operation == 'delete':
                 query = eval(f'{table}.delete()')
                 cursor.execute(query)
+                conn.commit()
