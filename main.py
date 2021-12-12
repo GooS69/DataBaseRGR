@@ -42,6 +42,11 @@ with closing(psycopg2.connect(dbname='rgr', user='postgres', password='postgres'
                 cursor.execute(query)
                 conn.commit()
 
+            elif operation == 'update':
+                query = eval(f'{table}.update()')
+                cursor.execute(query)
+                conn.commit()
+
             elif operation == 'delete':
                 query = eval(f'{table}.delete()')
                 cursor.execute(query)

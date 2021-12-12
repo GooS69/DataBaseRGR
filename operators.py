@@ -20,6 +20,13 @@ class Operators:
                f"('{title}', '{address}', '{phone}');"
 
     @staticmethod
+    def update():
+        title = input('Enter operator title(not null):')
+        address = input('Enter operator address:')
+        phone = input('Enter operator phone:')
+        return f"update operators set address = '{address}', phone = '{phone}' where operator_title = '{title}';"
+
+    @staticmethod
     def delete():
         title = input('Enter operator title:')
         return f"delete from operators where operator_title = '{title}';"

@@ -19,6 +19,13 @@ class Customers:
                f"('{customer_name}', '{address}', '{email}');"
 
     @staticmethod
+    def update():
+        customer_name = input('Enter customer name(not null):')
+        address = input('Enter customer address:')
+        email = input('Enter customer email:')
+        return f"update customers set address = '{address}', email = '{email}' where customer_name = '{customer_name}';"
+
+    @staticmethod
     def delete():
         customer_name = input('Enter customer name:')
         return f"delete from customers where customer_name = '{customer_name}';"

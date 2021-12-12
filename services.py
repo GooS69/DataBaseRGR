@@ -20,6 +20,14 @@ class Services:
                f"('{title}', '{price}', '{type}');"
 
     @staticmethod
+    def update():
+        title = input('Enter service title(not null):')
+        price = input('Enter service price:')
+        # validation on price
+        type = input('Enter service type:')
+        return f"update services set price = '{price}', type = '{type}' where service_title = '{title}';"
+
+    @staticmethod
     def delete():
         title = input('Enter service title:')
         return f"delete from services where service_title = '{title}';"
