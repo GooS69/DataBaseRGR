@@ -3,12 +3,12 @@ class Phones:
 
     @staticmethod
     def show_all():
-        return 'select * from phones;'
+        return 'select * from phones;', []
 
     @staticmethod
     def select():
         phone_number = input('Enter phone number:')
-        return f"select * from phones where number = '{phone_number}';"
+        return "select * from phones where number = %s;", [phone_number, ]
 
     @staticmethod
     def insert():
@@ -17,8 +17,8 @@ class Phones:
         customer_name = input('Enter customer name:')
         region = input('Enter region:')
         type = input('Enter phone type:')
-        return f"insert into phones (number, operator_title, customer_name, region, type) VALUES " \
-               f"('{number}', '{operator_title}', '{customer_name}', '{region}', '{type}');"
+        return "insert into phones (number, operator_title, customer_name, region, type) VALUES (%s, %s, %s, %s, %s);",\
+               [number, operator_title, customer_name, region, type]
 
     @staticmethod
     def update():
@@ -27,10 +27,10 @@ class Phones:
         customer_name = input('Enter customer name:')
         region = input('Enter region:')
         type = input('Enter phone type:')
-        return f"update phones set operator_title = '{operator_title}', customer_name = '{customer_name}'," \
-               f"region = '{region}', type = '{type}' where number = '{number}';"
+        return "update phones set operator_title = %s, customer_name = %s, region = %s, type = %s where number = %s;",\
+               [operator_title, customer_name, region, type, number]
 
     @staticmethod
     def delete():
         phone_number = input('Enter phone number:')
-        return f"delete from phones where number = '{phone_number}'"
+        return "delete from phones where number = %s", [phone_number, ]

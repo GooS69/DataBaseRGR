@@ -13,8 +13,13 @@ from subscriptions import Subscriptions
 with closing(psycopg2.connect(dbname='rgr', user='postgres', password='postgres', host='localhost')) as conn:
     with conn.cursor() as cursor:
 
+        print('type "exit" for exit')
         while True:
             table = input('Enter table (Operators, Phones, Customers, PhoneCalls, Services, Subscriptions):')
+
+            if table == 'exit':
+                break
+
             if table not in ['Operators', 'Phones', 'Customers', 'PhoneCalls', 'Services', 'Subscriptions']:
                 print(f'Table {table} not exist')
                 continue
@@ -29,15 +34,15 @@ with closing(psycopg2.connect(dbname='rgr', user='postgres', password='postgres'
 
             try:
                 if operation in ['show_all', 'select']:
-                    query = eval(f'{table}.{operation}()')
-                    cursor.execute(query)
+                    query, params = eval(f'{table}.{operation}()')
+                    cursor.execute(query, params)
                     print('Results:')
                     for row in cursor:
                         print(row)
 
                 elif operation in ['insert', 'update', 'delete']:
-                    query = eval(f'{table}.{operation}()')
-                    cursor.execute(query)
+                    query, params = eval(f'{table}.{operation}()')
+                    cursor.execute(query, params)
                     conn.commit()
                     print('Done!')
             except Exception as e:
